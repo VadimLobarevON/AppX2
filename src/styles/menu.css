@@ -1,0 +1,68 @@
+.topbar-menu {
+  background-color: #333;
+  color: #fff;
+  padding: 15px 20px; /* Increased padding for greater height */
+  margin: 0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure the menu appears above other content */
+  display: flex; /* Make the topbar-menu a flex container */
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center; /* Align items vertically in the center */
+}
+
+.logo-container {
+  margin-right: 20px; /* Add margin between logo and first button */
+}
+
+.logo {
+  height: 30px; /* Set the height of the logo */
+}
+
+.topbar-menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.topbar-menu ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.topbar-menu ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+.topbar-menu ul li a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.active-link {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+.logout-button {
+  margin-right: 20px; /* Add margin between last link and logout button */
+}
+
+.logout-button button {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  text-decoration: none;
+  font-size: medium;
+}
+
+.logout-button button:hover {
+  background-color: #555;
+  border-radius: 5px;
+}

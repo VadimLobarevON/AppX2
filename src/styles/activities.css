@@ -1,0 +1,41 @@
+h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 16px;
+    padding-right: 40px;
+}
+
+/* Style for form statuses */
+h2 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* Style for form entries */
+p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+/* Style for form links */
+a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #0056b3;
+}
+/* styles.css */
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    padding-right: 40px;
+}
+
+.column {
+}
