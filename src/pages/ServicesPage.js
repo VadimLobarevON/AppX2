@@ -14,7 +14,7 @@ export default function ServicesPage() {
     const userData = JSON.parse(localStorage.getItem("user"));
     setUser(userData);
     console.log(userData.Email)
-    uuidRef.current = userData.Email; // Store the UUID in the ref
+    uuidRef.current = userData.userid; // Store the UUID in the ref
     console.log(uuidRef.current)
 
     // Fetch form types from the provided URL
@@ -40,6 +40,7 @@ export default function ServicesPage() {
     const formattedSelectedForm = selectedForm.replace(/\s+/g, '');
     const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${formattedSelectedForm}/${uuidRef.current}/NEW-${formName}`;
     console.log(link);
+    window.open(link, '_blank');
   }
 
   return (

@@ -14,35 +14,35 @@ const UserDetailsView = ({ user }) => {
     <div className="user-details-container">
       <h2>User Details</h2>
       <div>
-        <strong>Email:</strong> {user.Email}
+        <strong>Email:</strong> {user.email}
       </div>
       <div>
-        <strong>Password:</strong> {user.Password}
+        <strong>Password:</strong> {user.password}
       </div>
       <div>
-        <strong>First Name:</strong> {user.FirstName}
+        <strong>First Name:</strong> {user.first_name}
       </div>
       <div>
-        <strong>Last Name:</strong> {user.LastName}
+        <strong>Last Name:</strong> {user.last_name}
       </div>
       <div>
         <strong>Business Operating Number:</strong>{" "}
-        {user.BussinessOperatingNumber}
+        {user.business_operating_number}
       </div>
       <div>
-        <strong>Business Number:</strong> {user.BussinessNumber}
+        <strong>Business Number:</strong> {user.business_number}
       </div>
       <div>
-        <strong>Business Legal Name:</strong> {user.BusinessLegalName}
+        <strong>Business Legal Name:</strong> {user.business_legal_name}
       </div>
       <div>
-        <strong>Contact Number:</strong> {user.ContactNumber}
+        <strong>Contact Number:</strong> {user.contact_number}
       </div>
       <div>
-        <strong>Business Address:</strong> {user.BusinessAddress}
+        <strong>Business Address:</strong> {user.business_address}
       </div>
       <div>
-        <strong>Mailing Address:</strong> {user.MailingAddress}
+        <strong>Mailing Address:</strong> {user.mailing_address}
       </div>
     </div>
   );
@@ -61,17 +61,18 @@ const UserDetailsEdit = ({ user, onSave }) => {
     console.log(editedUser);
     localStorage.setItem("user", JSON.stringify(editedUser));
     axios
-      .post("https://soab-poc-user-api.azurewebsites.net/editedUser", {
-        FirstName: editedUser.FirstName,
-        LastName: editedUser.LastName,
-        BussinessOperatingNumber: editedUser.BussinessOperatingNumber,
-        BussinessNumber: editedUser.BussinessNumber,
-        BusinessLegalName: editedUser.BusinessLegalName,
-        ContactNumber: editedUser.ContactNumber,
-        Email: editedUser.Email,
-        BusinessAddress: editedUser.BusinessAddress,
-        MailingAddress: editedUser.MailingAddress,
-        Password: editedUser.Password,
+      .post("http://20.175.202.147/user/update", {
+        userid: editedUser.userid,
+        first_name: editedUser.first_name,
+        last_name: editedUser.last_name,
+        business_operating_number: editedUser.business_operating_number,
+        business_number: editedUser.bussiness_number,
+        business_legal_name: editedUser.business_legal_name,
+        contact_number: editedUser.contact_number,
+        email: editedUser.email,
+        business_address: editedUser.business_address,
+        mailing_address: editedUser.mailing_address,
+        password: editedUser.password,
       })
       .then(function (response) {
         console.log(response);
@@ -94,14 +95,14 @@ const UserDetailsEdit = ({ user, onSave }) => {
         />
       </div> */}
       <div className="form-group">
-        <strong>Email:</strong> {user.Email}
+        <strong>Email:</strong> {user.email}
       </div>
       <div className="form-group">
         <label>Password:</label>{" "}
         <input
           type="password"
-          name="Password"
-          value={editedUser.Password}
+          name="password"
+          value={editedUser.password}
           onChange={handleChange}
         />
       </div>
@@ -109,8 +110,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>First Name:</label>{" "}
         <input
           type="text"
-          name="FirstName"
-          value={editedUser.FirstName}
+          name="first_name"
+          value={editedUser.first_name}
           onChange={handleChange}
         />
       </div>
@@ -118,8 +119,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Last Name:</label>{" "}
         <input
           type="text"
-          name="LastName"
-          value={editedUser.LastName}
+          name="last_name"
+          value={editedUser.last_name}
           onChange={handleChange}
         />
       </div>
@@ -127,8 +128,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Business Operating Number:</label>{" "}
         <input
           type="text"
-          name="BussinessOperatingNumber"
-          value={editedUser.BussinessOperatingNumber}
+          name="business_operating_number"
+          value={editedUser.business_operating_number}
           onChange={handleChange}
         />
       </div>
@@ -136,8 +137,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Business Number:</label>{" "}
         <input
           type="text"
-          name="BussinessNumber"
-          value={editedUser.BussinessNumber}
+          name="business_number"
+          value={editedUser.business_number}
           onChange={handleChange}
         />
       </div>
@@ -145,8 +146,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Business Legal Name:</label>{" "}
         <input
           type="text"
-          name="BusinessLegalName"
-          value={editedUser.BusinessLegalName}
+          name="business_legal_name"
+          value={editedUser.business_legal_name}
           onChange={handleChange}
         />
       </div>
@@ -154,8 +155,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Contact Number:</label>{" "}
         <input
           type="text"
-          name="ContactNumber"
-          value={editedUser.ContactNumber}
+          name="contact_number"
+          value={editedUser.contact_number}
           onChange={handleChange}
         />
       </div>
@@ -163,8 +164,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Business Address:</label>{" "}
         <input
           type="text"
-          name="BusinessAddress"
-          value={editedUser.BusinessAddress}
+          name="business_address"
+          value={editedUser.business_address}
           onChange={handleChange}
         />
       </div>
@@ -172,8 +173,8 @@ const UserDetailsEdit = ({ user, onSave }) => {
         <label>Mailing Address:</label>{" "}
         <input
           type="text"
-          name="MailingAddress"
-          value={editedUser.MailingAddress}
+          name="mailing_address"
+          value={editedUser.mailing_address}
           onChange={handleChange}
         />
       </div>

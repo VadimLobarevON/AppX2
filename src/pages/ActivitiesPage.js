@@ -91,9 +91,9 @@ const filterForms = (nameValue, typeValue) => {
     const fetchFormData = async () => {
       try {
         // Assuming UserId is available in localStorage, adjust this accordingly
-        const userId = JSON.parse(localStorage.getItem("user")).Email;
+        const userId = JSON.parse(localStorage.getItem("user")).userid;
         console.log(userId)
-        const response = await axios.get(`http://4.172.130.199/forms/UUID`, { //${userId}
+        const response = await axios.get(`http://4.172.130.199/forms/${userId}}`, { //${userId}
           withCredentials: true
         });
         setFilteredData(response.data);

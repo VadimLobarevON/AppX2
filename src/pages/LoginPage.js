@@ -7,8 +7,8 @@ import "../styles/login.css";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    Email: "",
-    Password: "",
+    email: "",
+    password: "",
   });
 
   const handleChange = (event) => {
@@ -19,52 +19,55 @@ export default function LoginPage() {
     event.preventDefault();
     console.log(values);
     axios
-      .get("https://soab-poc-user-api.azurewebsites.net/login", {
-        Email: values.Email,
-        Password: values.Password,
+      .post("http://20.175.202.147/user/get-user", {
+        email: values.email,
+        password: values.password,
       })
       .then(function (response) {
         console.log(response);
         if (response.status === 200) {
+          // Save user data to localStorage
+          localStorage.setItem('user', JSON.stringify(response.data));
+
           console.log("redirected");
           navigate("/profile", { state: { user: response.data } });
         } else {
-          alert("Credentials are incorrect");
+          alert("Credentials are incorrect1");
         }
       })
       .catch(function (error) {
         console.log(error, "error");
-        alert("Credentials are incorrect");
+        alert("Credentials are incorrect2");
       });
   };
   // const handleSubmit = (event) =>{
   //   navigate("/profile");
   // }
-  const handleRecoveringPassword = (event) => {
-    event.preventDefault();
+  // const handleRecoveringPassword = (event) => {
+  //   event.preventDefault();
 
-    console.log(values.Email);
+  //   console.log(values.Email);
 
-    if (values.Email === "") {
-      alert("Please enter your email address.");
-    } else {
-      console.log("Sending an email and redirecting...");
+  //   if (values.Email === "") {
+  //     alert("Please enter your email address.");
+  //   } else {
+  //     console.log("Sending an email and redirecting...");
 
-      axios
-        .post("https://soab-poc-user-api.azurewebsites.net/recovery", {
-          Email: values.Email,
-          Link: "https://appx.azurewebsites.net/recoveringPassword",
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error, "error");
-        });
+  //     axios
+  //       .post("https://soab-poc-user-api.azurewebsites.net/recovery", {
+  //         Email: values.Email,
+  //         Link: "https://appx.azurewebsites.net/recoveringPassword",
+  //       })
+  //       .then(function (response) {
+  //         console.log(response);
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error, "error");
+  //       });
 
-      navigate("/confirmation");
-    }
-  };
+  //     navigate("/confirmation");
+  //   }
+  // };
 
   return (
     <div className="container">
@@ -74,34 +77,34 @@ export default function LoginPage() {
         </div>
 
         <div className="form-group">
-          <label className="" for="Email">
+          <label className="" for="email">
             Email address
           </label>{" "}
           <input
             type="email"
-            name="Email"
+            name="email"
             onChange={handleChange}
-            id="Email"
+            id="email"
             className=""
             placeholder="Enter a valid email address"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="Password">
+          <label className="" for="password">
             Password
           </label>
           <input
             type="password"
-            name="Password"
+            name="password"
             onChange={handleChange}
-            id="Password"
+            id="password"
             className=""
             placeholder="Enter password"
           />
         </div>
 
-        <div className="form-group forgot-password">
+        {/* <div className="form-group forgot-password">
           <Link
             onClick={handleRecoveringPassword}
             to="/confirmation"
@@ -109,7 +112,7 @@ export default function LoginPage() {
           >
             Forgot password?
           </Link>
-        </div>
+        </div> */}
         {/* <div className="">
                       <input className="" type="checkbox" value="" id="RememberMe" />
                       <label className="" for="RememberMe">
