@@ -27,17 +27,17 @@ export default function LoginPage() {
         console.log(response);
         if (response.status === 200) {
           // Save user data to localStorage
-          localStorage.setItem('user', JSON.stringify(response.data));
+          localStorage.setItem('userProfile', JSON.stringify(response.data));
 
           console.log("redirected");
           navigate("/profile", { state: { user: response.data } });
         } else {
-          alert("Credentials are incorrect1");
+          alert("Credentials are incorrect");
         }
       })
       .catch(function (error) {
         console.log(error, "error");
-        alert("Credentials are incorrect2");
+        alert("Credentials are incorrect");
       });
   };
   // const handleSubmit = (event) =>{

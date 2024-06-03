@@ -90,11 +90,12 @@ const filterForms = (nameValue, typeValue) => {
   useEffect(() => {
     const fetchFormData = async () => {
       try {
+        console.log(localStorage);
         // Assuming UserId is available in localStorage, adjust this accordingly
-        const userId = JSON.parse(localStorage.getItem("user")).userid;
-        console.log(userId)
-        const response = await axios.get(`http://4.172.130.199/forms/${userId}}`, { //${userId}
-          withCredentials: true
+        const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
+        console.log(userId + "we are here (get all forms for user)")
+        const response = await axios.get(`http://4.172.130.199/forms/${userId}`, { //${userId}
+          // withCredentials: true
         });
         setFilteredData(response.data);
         setFroms(response.data)
@@ -108,8 +109,10 @@ const filterForms = (nameValue, typeValue) => {
 
     fetchFormData();
   }, []);
+  
   let formType
   let formName
+
   const handleModifyForm = (formId) => {
     console.log(formId);
     console.log(filteredData)
@@ -117,10 +120,13 @@ const filterForms = (nameValue, typeValue) => {
       // Assign form type and form name to variables
       formType = form.form_type;
       formName = form.form_name;
+    });
+    const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
+    console.log(formType.split(' ').join(''), formName.split(' ').join(''), formId.split(' ').join(''), userId.split(' ').join(''));
 
-  });
-  const userId = JSON.parse(localStorage.getItem("user")).Email;
-  console.log(formType.split(' ').join(''), formName.split(' ').join(''), formId.split(' ').join(''), userId.split(' ').join(''));
+    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${formType}/${userId}/${formId}`;
+    console.log(link);
+    window.open(link, '_blank');
   };
 
 

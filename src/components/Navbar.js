@@ -8,7 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   let handleLogOut = () => {
-    localStorage.setItem("user", "");
+    localStorage.setItem("userProfile", "");
     navigate("/login");
   };
   return (

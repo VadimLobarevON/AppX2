@@ -7,8 +7,8 @@ import { json, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 const UserDetailsView = ({ user }) => {
-  localStorage.setItem("user", JSON.stringify(user));
-  let stored = localStorage.getItem("user");
+  localStorage.setItem("userProfile", JSON.stringify(user));
+  let stored = localStorage.getItem("userProfile");
   console.log(JSON.parse(stored));
   return (
     <div className="user-details-container">
@@ -59,7 +59,7 @@ const UserDetailsEdit = ({ user, onSave }) => {
   const handleSave = () => {
     onSave(editedUser);
     console.log(editedUser);
-    localStorage.setItem("user", JSON.stringify(editedUser));
+    localStorage.setItem("userProfile", JSON.stringify(editedUser));
     axios
       .post("http://20.175.202.147/user/update", {
         userid: editedUser.userid,
@@ -189,7 +189,7 @@ function Profile() {
   const location = useLocation();
   let user = location.state?.user;
   if (user == undefined) {
-    let storedUser = localStorage.getItem("user");
+    let storedUser = localStorage.getItem("userProfile");
     storedUser = JSON.parse(storedUser);
     console.log(storedUser);
     if (storedUser == undefined) {

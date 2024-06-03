@@ -11,7 +11,7 @@ export default function ServicesPage() {
   const uuidRef = useRef(null);
 
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
+    const userData = JSON.parse(localStorage.getItem("userProfile"));
     setUser(userData);
     console.log(userData.Email)
     uuidRef.current = userData.userid; // Store the UUID in the ref
@@ -19,7 +19,7 @@ export default function ServicesPage() {
 
     // Fetch form types from the provided URL
     axios.get("http://4.172.130.199/form-types", {
-      withCredentials: true
+      // withCredentials: true
     })
       .then((response) => {
         setFormTypes(response.data);
@@ -38,7 +38,7 @@ export default function ServicesPage() {
     
     // Construct link with formatted selectedForm (removing spaces)
     const formattedSelectedForm = selectedForm.replace(/\s+/g, '');
-    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${formattedSelectedForm}/${uuidRef.current}/NEW-${formName}`;
+    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${formattedSelectedForm}/${uuidRef.current}/NWForm${formName}`;
     console.log(link);
     window.open(link, '_blank');
   }

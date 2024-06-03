@@ -114,7 +114,7 @@ export default function RegisterPage() {
 
         <div className="form-group">
           <label className="" for="BusinessLegalName">
-            Bussiness legal name
+            Business legal name
           </label>
           <input
             name="BusinessLegalName"
@@ -122,7 +122,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             id="BusinessLegalName"
             className=""
-            placeholder="Enter your Bussiness legal name"
+            placeholder="Enter your Business legal name"
           />
         </div>
 
