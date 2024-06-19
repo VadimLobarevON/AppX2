@@ -6,130 +6,157 @@ import "../styles/activities.css";
 const ActivitiesPage = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [forms, setFroms] = useState([]);
-  const [searchFormName, setSearchFormName] = useState('');
-  const [searchFormType, setSearchFormType] = useState('');
-  let sortedData
+  const [searchFormName, setSearchFormName] = useState("");
+  const [searchFormType, setSearchFormType] = useState("");
+  const [searchFormStatus, setSearchFormStatus] = useState("");
+
   const handleInputNameChange = (e) => {
     const inputValue = e.target.value;
     setSearchFormName(inputValue);
+    filterForms(inputValue, searchFormType, searchFormStatus);
+  };
 
-    filterForms(inputValue, searchFormType);
-};
-
-const handleInputTypeChange = (e) => {
+  const handleInputTypeChange = (e) => {
     const inputValue = e.target.value;
     setSearchFormType(inputValue);
+    filterForms(searchFormName, inputValue, searchFormStatus);
+  };
 
-    filterForms(searchFormName, inputValue);
-};
+  const filterForms = (nameValue, typeValue, statusValue) => {
+    let filteredForms = forms;
 
-const filterForms = (nameValue, typeValue) => {
-  let filteredForms = forms;
-
-  if (nameValue !== '') {
-      filteredForms = filteredForms.filter(form =>
-          form.form_name.toLowerCase().includes(nameValue.toLowerCase())
+    if (nameValue !== "") {
+      filteredForms = filteredForms.filter((form) =>
+        form.form_name.toLowerCase().includes(nameValue.toLowerCase())
       );
-  }
+    }
 
-  if (typeValue !== '') {
-      filteredForms = filteredForms.filter(form =>
-          form.form_type.toLowerCase().includes(typeValue.toLowerCase())
+    if (typeValue !== "") {
+      filteredForms = filteredForms.filter((form) =>
+        form.form_type.toLowerCase().includes(typeValue.toLowerCase())
       );
-  }
+    }
 
-  if (filteredForms.length === 0) {
-      // If the filtered array is empty, fill it with the default data
-      filteredForms = [{
-          "createdOn": "-",
-          "form_name": "-",
-          "form_type": "-",
-          "formid": "-",
-          "modifiedOn": "-"
-      }];
-  }
+    if (statusValue !== "") {
+      filteredForms = filteredForms.filter((form) =>
+        form.form_status.toLowerCase().includes(statusValue.toLowerCase())
+      );
+    }
 
-  setFilteredData(filteredForms);
-};
+    if (filteredForms.length === 0) {
+      filteredForms = [
+        {
+          createdOn: "-",
+          form_name: "-",
+          form_status: "-",
+          form_type: "-",
+          formid: "-",
+          modifiedOn: "-"
+        },
+      ];
+    }
+
+    setFilteredData(filteredForms);
+  };
 
   const SortBy = (name, value) => {
     console.log(name, value);
-  
-    // Reset both sorting options to "None"
+
+    // Reset other sorting dropdowns
     if (name === "CreatedOn") {
       document.getElementById("sortByModifiedOn").value = ""; // Reset ModifiedOn dropdown
-      // setSearchFormType(""); // Reset state for the sorting option
     } else if (name === "ModifiedOn") {
       document.getElementById("sortByCreateOn").value = ""; // Reset CreatedOn dropdown
-      // setSearchFormName(""); // Reset state for the sorting option
+    } else if (name === "FormStatus") {
+      document.getElementById("sortByCreateOn").value = ""; // Reset CreatedOn dropdown
+      document.getElementById("sortByModifiedOn").value = ""; // Reset ModifiedOn dropdown
     }
-  
 
-
+    let sortedData;
     if (value === "newest" && name === "CreatedOn") {
-      sortedData = filteredData.slice().sort((a, b) => new Date(b.modifiedOn) - new Date(a.createdOn));
-      console.log(sortedData)
-  } else if (value === "oldest" && name === "CreatedOn") {
-    sortedData = filteredData.slice().sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
-    console.log(sortedData)
-  } else if (value === "newest" && name === "ModifiedOn") {
-    sortedData = filteredData.slice().sort((a, b) => new Date(b.modifiedOn) - new Date(a.modifiedOn));
-    console.log(sortedData)
-  } else if (value === "oldest" && name === "ModifiedOn") {
-    sortedData = filteredData.slice().sort((a, b) => new Date(a.createdOn) - new Date(b.modifiedOn));
-    console.log(sortedData)
-  } else {
-      console.log(filteredData)
-  }
-  setFilteredData(sortedData);
-  
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => new Date(b.createdOn) - new Date(a.createdOn));
+    } else if (value === "oldest" && name === "CreatedOn") {
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => new Date(a.createdOn) - new Date(b.createdOn));
+    } else if (value === "newest" && name === "ModifiedOn") {
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => new Date(b.modifiedOn) - new Date(a.modifiedOn));
+    } else if (value === "oldest" && name === "ModifiedOn") {
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => new Date(a.modifiedOn) - new Date(b.modifiedOn));
+    } else if (value === "asc" && name === "FormStatus") {
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => a.form_status.localeCompare(b.form_status));
+    } else if (value === "desc" && name === "FormStatus") {
+      sortedData = filteredData
+        .slice()
+        .sort((a, b) => b.form_status.localeCompare(a.form_status));
+    } else {
+      sortedData = filteredData;
+    }
 
-
-  }
+    setFilteredData(sortedData);
+  };
 
   useEffect(() => {
     const fetchFormData = async () => {
       try {
-        console.log(localStorage);
-        // Assuming UserId is available in localStorage, adjust this accordingly
         const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
-        console.log(userId + "we are here (get all forms for user)")
-        const response = await axios.get(`http://4.172.130.199/forms/${userId}`, { //${userId}
-          // withCredentials: true
-        });
+        const response = await axios.get(
+          `http://4.172.130.199/forms/${userId}`
+        );
         setFilteredData(response.data);
-        setFroms(response.data)
-        console.log(forms)
-        console.log(response)
+        setFroms(response.data);
       } catch (error) {
         console.error("Error fetching form data:", error);
-        // Display error message to user or handle the error accordingly
       }
     };
 
     fetchFormData();
   }, []);
-  
-  let formType
-  let formName
 
   const handleModifyForm = (formId) => {
     console.log(formId);
-    console.log(filteredData)
-    filteredData.forEach(form => {
-      // Assign form type and form name to variables
-      formType = form.form_type;
-      formName = form.form_name;
-    });
+    const form = filteredData.find((form) => form.formid === formId);
     const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
-    console.log(formType.split(' ').join(''), formName.split(' ').join(''), formId.split(' ').join(''), userId.split(' ').join(''));
 
-    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${formType}/${userId}/${formId}`;
+    const encodeExtraCharacters = (str) => {
+        return encodeURIComponent(str)
+          .replaceAll("^", '%5E')  // Encode caret (^) character
+          .replaceAll("#", '%23')    // Encode hash (#) character
+          .replaceAll("\\", '\\')   // Encode backslash (\) character
+          .replaceAll("|", '%7C')   // Encode vertical bar (|) character
+          .replaceAll("\"", '%22')    // Encode double quote (") character
+          .replaceAll("'", '%27')    // Encode single quote (') character
+          .replaceAll("<", '%3C')// Encode angle brackets (<) together as %3C
+          .replaceAll(">", '%3E')// Encode angle brackets (>) together as %3E
+          .replaceAll("`", '%60')    // Encode grave accent (`) character
+          .replaceAll("{", '%7B')   // Encode opening curly brace ({) character
+          .replaceAll("}", '%7D')   // Encode closing curly brace (}) character
+          .replaceAll("[", '%5B')   // Encode opening square bracket ([) character
+          .replaceAll("]", '%5D')   // Encode closing square bracket (]) character
+          .replaceAll("/", '%2F')   // Encode forward slash (/) character
+          .replaceAll(":", '%3A');   // Encode colon (:) character
+    };
+
+    const encodedFormType = encodeExtraCharacters(form.form_type);
+    const encodedUserId = encodeExtraCharacters(userId);
+    const encodedFormId = encodeExtraCharacters(formId);
+
+    console.log(formId);
+    console.log(encodedFormId);
+
+    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormType}/${encodedUserId}/${encodedFormId}`;
     console.log(link);
-    window.open(link, '_blank');
-  };
-
-
+    console.log(decodeURI(link));
+    window.open(link, "_blank");
+};
 
   const renderForms = () => {
     if (!filteredData || filteredData.length === 0) {
@@ -143,31 +170,10 @@ const filterForms = (nameValue, typeValue) => {
         <thead>
           <tr>
             <th colSpan={keys.length + 1} style={{ textAlign: "left" }}>
-              <div className="filters-container">
-              </div>
+              <div className="filters-container"></div>
             </th>
           </tr>
           <tr>
-
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              <select
-                  id="sortByCreateOn"
-                  defaultValue=""
-                  onChange={(e) => SortBy('CreatedOn', e.target.value)}
-                >
-                  <option value="">None</option>
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                </select>
-            </th>
-
             <th
               style={{
                 border: "1px solid #ddd",
@@ -177,11 +183,11 @@ const filterForms = (nameValue, typeValue) => {
               }}
             >
               <input
-                  type="text"
-                  placeholder="Search by Form Name"
-                  value={searchFormName}
-                  onChange={handleInputNameChange}
-                />
+                type="text"
+                placeholder="Search by Form Name"
+                value={searchFormName}
+                onChange={handleInputNameChange}
+              />
             </th>
             <th
               style={{
@@ -192,13 +198,12 @@ const filterForms = (nameValue, typeValue) => {
               }}
             >
               <input
-                  type="text"
-                  placeholder="Search by Form Type"
-                  value={searchFormType}
-                  onChange={handleInputTypeChange}
-                />
+                type="text"
+                placeholder="Search by Form Type"
+                value={searchFormType}
+                onChange={handleInputTypeChange}
+              />
             </th>
-            
             <th
               style={{
                 border: "1px solid #ddd",
@@ -208,14 +213,14 @@ const filterForms = (nameValue, typeValue) => {
               }}
             >
               <select
-                  id="sortByModifiedOn"
-                  defaultValue=""
-                  onChange={(e) => SortBy('ModifiedOn',e.target.value)}
-                >
-                  <option value="">None</option>
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                </select>
+                id="sortByModifiedOn"
+                defaultValue=""
+                onChange={(e) => SortBy("ModifiedOn", e.target.value)}
+              >
+                <option value="">None</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+              </select>
             </th>
             <th
               style={{
@@ -225,6 +230,33 @@ const filterForms = (nameValue, typeValue) => {
                 backgroundColor: "#f2f2f2",
               }}
             >
+              <select
+                id="sortByCreateOn"
+                defaultValue=""
+                onChange={(e) => SortBy("CreatedOn", e.target.value)}
+              >
+                <option value="">None</option>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+              </select>
+            </th>
+            <th
+              style={{
+                border: "1px solid #ddd",
+                padding: "8px",
+                textAlign: "left",
+                backgroundColor: "#f2f2f2",
+              }}
+            >
+              <select
+                id="sortByFormStatus"
+                defaultValue=""
+                onChange={(e) => SortBy("FormStatus", e.target.value)}
+              >
+                <option value="">None</option>
+                <option value="asc">Draft First</option>
+                <option value="desc">Submitted First</option>
+              </select>
             </th>
           </tr>
           <tr>
@@ -268,7 +300,7 @@ const filterForms = (nameValue, typeValue) => {
                 <button
                   className="login-button"
                   style={{ fontSize: "14px", padding: "6px 10px" }}
-                  onClick={() => handleModifyForm(item.formid, item.formtype)}
+                  onClick={() => handleModifyForm(item.formid)}
                 >
                   Modify
                 </button>
