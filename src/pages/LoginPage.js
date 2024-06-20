@@ -7,8 +7,8 @@ import "../styles/login.css";
 export default function LoginPage() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    email: "",
-    password: "",
+    Email__address: "",
+    Password: "",
   });
 
   const handleChange = (event) => {
@@ -20,8 +20,8 @@ export default function LoginPage() {
     console.log(values);
     axios
       .post("http://20.175.202.147/user/get-user", {
-        email: values.email,
-        password: values.password,
+        Email__address: values.Email__address,
+        Password: values.Password,
       })
       .then(function (response) {
         console.log(response);
@@ -77,28 +77,28 @@ export default function LoginPage() {
         </div>
 
         <div className="form-group">
-          <label className="" for="email">
+          <label className="" for="Email__address">
             Email address
           </label>{" "}
           <input
             type="email"
-            name="email"
+            name="Email__address"
             onChange={handleChange}
-            id="email"
+            id="Email__address"
             className=""
             placeholder="Enter a valid email address"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="password">
+          <label className="" for="Password">
             Password
           </label>
           <input
             type="password"
-            name="password"
+            name="Password"
             onChange={handleChange}
-            id="password"
+            id="Password"
             className=""
             placeholder="Enter password"
           />

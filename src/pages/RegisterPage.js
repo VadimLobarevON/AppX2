@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 export default function RegisterPage() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    FirstName: "",
-    LastName: "",
-    BussinessOperatingNumber: "",
-    BussinessNumber: "",
-    BusinessLegalName: "",
-    ContactNumber: "",
-    Email: "",
-    BusinessAddress: "",
-    MailingAddress: "",
+    First__name: "",
+    Last__name: "",
+    Business__operating__number: "",
+    Business__number: "",
+    Business__legal__name: "",
+    Contact__number: "",
+    Email__address: "",
+    Business__address: "",
+    Mailing__address: "",
     Password: "",
   });
   // const [errors, setErrors] = useState({})
@@ -26,16 +26,16 @@ export default function RegisterPage() {
     event.preventDefault();
     axios
       .post("http://20.175.202.147/user", {
-        first_name: values.FirstName,
-        last_name: values.LastName,
-        business_operating_number: values.BussinessOperatingNumber,
-        business_number: values.BussinessNumber,
-        business_legal_name: values.BusinessLegalName,
-        contact_number: values.ContactNumber,
-        email: values.Email,
-        business_address: values.BusinessAddress,
-        mailing_address: values.MailingAddress,
-        password: values.Password,
+        First__name: values.First__name,
+        Last__name: values.Last__name,
+        Business__operating__number: values.Business__operating__number,
+        Business__number: values.Business__number,
+        Business__legal__name: values.Business__legal__name,
+        Contact__number: values.Contact__number,
+        Email__address: values.Email__address,
+        Business__address: values.Business__address,
+        Mailing__address: values.Mailing__address,
+        Password: values.Password,
       })
       .then(function (response) {
         console.log(response);
@@ -56,127 +56,127 @@ export default function RegisterPage() {
         </div>
 
         <div className="form-group">
-          <label className="" for="FirstName">
+          <label className="" for="First__name">
             First name
           </label>
           <input
-            name="FirstName"
-            type="FirstName"
+            name="First__name"
+            type="First__name"
             onChange={handleChange}
-            id="FirstName"
+            id="First__name"
             className=""
             placeholder="Enter your First Name"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="LastName">
+          <label className="" for="Last__name">
             Last name
           </label>
 
           <input
-            name="LastName"
-            type="LastName"
+            name="Last__name"
+            type="Last__name"
             onChange={handleChange}
-            id="LastName"
+            id="Last__name"
             className=""
             placeholder="Enter your Last Name"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="BussinessOperatingNumber">
+          <label className="" for="Business__operating__number">
             Business operating number
           </label>
           <input
-            name="BussinessOperatingNumber"
-            type="BussinessOperatingNumber"
+            name="Business__operating__number"
+            type="Business__operating__number"
             onChange={handleChange}
-            id="BussinessOperatingNumber"
+            id="Business__operating__number"
             className=""
             placeholder="Enter your Business operating number"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="BussinessNumber">
+          <label className="" for="Business__number">
             Business number
           </label>
           <input
-            name="BussinessNumber"
-            type="BussinessNumber"
+            name="Business__number"
+            type="Business__number"
             onChange={handleChange}
-            id="BussinessNumber"
+            id="Business__number"
             className=""
             placeholder="Enter your Business number"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="BusinessLegalName">
+          <label className="" for="Business__legal__name">
             Business legal name
           </label>
           <input
-            name="BusinessLegalName"
-            type="BusinessLegalName"
+            name="Business__legal__name"
+            type="Business__legal__name"
             onChange={handleChange}
-            id="BusinessLegalName"
+            id="Business__legal__name"
             className=""
             placeholder="Enter your Business legal name"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="ContactNumber">
+          <label className="" for="Contact__number">
             Contact number
           </label>
           <input
-            name="ContactNumber"
-            type="ContactNumber"
+            name="Contact__number"
+            type="Contact__number"
             onChange={handleChange}
-            id="ContactNumber"
+            id="Contact__number"
             className=""
             placeholder="Enter your Contact number"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="Email">
+          <label className="" for="Email__address">
             Email address
           </label>
           <input
-            name="Email"
-            type="Email"
+            name="Email__address"
+            type="email"
             onChange={handleChange}
-            id="Email"
+            id="Email__address"
             className=""
             placeholder="Enter a valid email address"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="BusinessAddress">
-            Bussiness address
+          <label className="" for="Business__address">
+            Business address
           </label>
           <input
-            name="BusinessAddress"
-            type="BusinessAddress"
+            name="Business__address"
+            type="Business__address"
             onChange={handleChange}
-            id="LName"
+            id="Business__address"
             className=""
-            placeholder="Enter your Bussiness address"
+            placeholder="Enter your Business address"
           />
         </div>
 
         <div className="form-group">
-          <label className="" for="MailingAddress">
+          <label className="" for="Mailing__address">
             Mailing address(if different)
           </label>
           <input
-            name="MailingAddress"
-            type="MailingAddress"
+            name="Mailing__address"
+            type="Mailing__address"
             onChange={handleChange}
-            id="MailingAddress"
+            id="Mailing__address"
             className=""
             placeholder="Enter your Mailing address(if different)"
           />
@@ -188,7 +188,7 @@ export default function RegisterPage() {
           </label>
           <input
             name="Password"
-            type="Password"
+            type="password"
             onChange={handleChange}
             id="Password"
             className=""

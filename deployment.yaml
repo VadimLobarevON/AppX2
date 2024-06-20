@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webservice-front-poc2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webservice-frontend
+  template:
+    metadata:
+      labels:
+        app: webservice-frontend
+    spec:
+      containers:
+      - name: webservice-frontend-container-2
+        image: anton28/web-service-backend:latest-web-front2
+      imagePullSecrets:
+      - name: my-dockerhub-secret
