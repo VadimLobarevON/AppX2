@@ -16,9 +16,9 @@ const UserDetailsView = ({ user }) => {
       <div>
         <strong>Email:</strong> {user.Email__address}
       </div>
-      <div>
+      {/* <div>
         <strong>Password:</strong> {user.Password}
-      </div>
+      </div> */}
       <div>
         <strong>First Name:</strong> {user.First__name}
       </div>

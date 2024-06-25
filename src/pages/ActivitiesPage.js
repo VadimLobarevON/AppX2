@@ -158,23 +158,111 @@ const ActivitiesPage = () => {
     window.open(link, "_blank");
 };
 
-  const renderForms = () => {
-    if (!filteredData || filteredData.length === 0) {
-      return <div>No data to display</div>;
-    }
+const renderForms = () => {
+  if (!filteredData || filteredData.length === 0) {
+    return <div>No data to display</div>;
+  }
 
-    const keys = Object.keys(filteredData[0]).filter((key) => key !== "formid");
+  const keys = Object.keys(filteredData[0]).filter((key) => key !== "formid");
 
-    return (
-      <table style={{ borderCollapse: "collapse", width: "100%" }}>
-        <thead>
-          <tr>
-            <th colSpan={keys.length + 1} style={{ textAlign: "left" }}>
-              <div className="filters-container"></div>
-            </th>
-          </tr>
-          <tr>
+  return (
+    <table style={{ borderCollapse: "collapse", width: "100%" }}>
+      <thead>
+        <tr>
+          <th colSpan={keys.length + 1} style={{ textAlign: "left" }}>
+            <div className="filters-container"></div>
+          </th>
+        </tr>
+        <tr>
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Search by Form Name"
+              value={searchFormName}
+              onChange={handleInputNameChange}
+            />
+          </th>
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Search by Form Type"
+              value={searchFormType}
+              onChange={handleInputTypeChange}
+            />
+          </th>
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            <select
+              id="sortByModifiedOn"
+              defaultValue=""
+              onChange={(e) => SortBy("ModifiedOn", e.target.value)}
+            >
+              <option value="">None</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </th>
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            <select
+              id="sortByCreateOn"
+              defaultValue=""
+              onChange={(e) => SortBy("CreatedOn", e.target.value)}
+            >
+              <option value="">None</option>
+              <option value="newest">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+          </th>
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            <select
+              id="sortByFormStatus"
+              defaultValue=""
+              onChange={(e) => SortBy("FormStatus", e.target.value)}
+            >
+              <option value="">None</option>
+              <option value="asc">Draft First</option>
+              <option value="desc">Submitted First</option>
+            </select>
+          </th>
+        </tr>
+        <tr>
+          {keys.map((key) => (
             <th
+              key={key}
               style={{
                 border: "1px solid #ddd",
                 padding: "8px",
@@ -182,135 +270,64 @@ const ActivitiesPage = () => {
                 backgroundColor: "#f2f2f2",
               }}
             >
-              <input
-                type="text"
-                placeholder="Search by Form Name"
-                value={searchFormName}
-                onChange={handleInputNameChange}
-              />
+              {key}
             </th>
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Search by Form Type"
-                value={searchFormType}
-                onChange={handleInputTypeChange}
-              />
-            </th>
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              <select
-                id="sortByModifiedOn"
-                defaultValue=""
-                onChange={(e) => SortBy("ModifiedOn", e.target.value)}
-              >
-                <option value="">None</option>
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
-            </th>
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              <select
-                id="sortByCreateOn"
-                defaultValue=""
-                onChange={(e) => SortBy("CreatedOn", e.target.value)}
-              >
-                <option value="">None</option>
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
-            </th>
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              <select
-                id="sortByFormStatus"
-                defaultValue=""
-                onChange={(e) => SortBy("FormStatus", e.target.value)}
-              >
-                <option value="">None</option>
-                <option value="asc">Draft First</option>
-                <option value="desc">Submitted First</option>
-              </select>
-            </th>
-          </tr>
-          <tr>
-            {keys.map((key) => (
-              <th
-                key={key}
-                style={{
-                  border: "1px solid #ddd",
-                  padding: "8px",
-                  textAlign: "left",
-                  backgroundColor: "#f2f2f2",
-                }}
-              >
-                {key}
-              </th>
-            ))}
-            <th
-              style={{
-                border: "1px solid #ddd",
-                padding: "8px",
-                textAlign: "left",
-                backgroundColor: "#f2f2f2",
-              }}
-            >
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item, index) => (
-            <tr key={index}>
-              {keys.map((key) => (
-                <td
-                  key={key}
-                  style={{ border: "1px solid #ddd", padding: "8px" }}
-                >
-                  {item[key]}
-                </td>
-              ))}
-              <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                <button
-                  className="login-button"
-                  style={{ fontSize: "14px", padding: "6px 10px" }}
-                  onClick={() => handleModifyForm(item.formid)}
-                >
-                  Modify
-                </button>
-              </td>
-            </tr>
           ))}
-        </tbody>
-      </table>
-    );
-  };
+          <th
+            style={{
+              border: "1px solid #ddd",
+              padding: "8px",
+              textAlign: "left",
+              backgroundColor: "#f2f2f2",
+            }}
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {filteredData.map((item, index) => (
+          <tr key={index}>
+            {keys.map((key) => (
+              <td
+                key={key}
+                style={{ border: "1px solid #ddd", padding: "8px" }}
+              >
+                {key === "form_status" ? (
+                  <span>
+                    <span
+                      className={`status-icon ${
+                        item.form_status.toLowerCase() === "draft"
+                          ? "status-draft"
+                          : item.form_status.toLowerCase() === "submitted"
+                          ? "status-submitted"
+                          : ""
+                      }`}
+                    ></span>
+                    {item[key]}
+                  </span>
+                ) : (
+                  item[key]
+                )}
+              </td>
+            ))}
+            <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+              <button
+                className="login-button"
+                style={{ fontSize: "14px", padding: "6px 10px" }}
+                onClick={() => handleModifyForm(item.formid)}
+              >
+                Modify
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+
 
   return (
     <div>

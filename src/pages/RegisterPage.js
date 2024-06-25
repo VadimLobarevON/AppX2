@@ -170,7 +170,7 @@ export default function RegisterPage() {
 
         <div className="form-group">
           <label className="" for="Mailing__address">
-            Mailing address(if different)
+            Mailing address (if different)
           </label>
           <input
             name="Mailing__address"
@@ -178,7 +178,7 @@ export default function RegisterPage() {
             onChange={handleChange}
             id="Mailing__address"
             className=""
-            placeholder="Enter your Mailing address(if different)"
+            placeholder="Enter your Mailing address (if different)"
           />
         </div>
 

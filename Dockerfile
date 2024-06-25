@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 8081
+# Expose port 80
 EXPOSE 80
 
 # Start nginx in the foreground

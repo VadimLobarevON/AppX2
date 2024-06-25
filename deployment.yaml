@@ -13,7 +13,7 @@ spec:
         app: webservice-frontend
     spec:
       containers:
-      - name: webservice-frontend-container-2
-        image: anton28/web-service-backend:latest-web-front2
+      - name: webservice-frontend-container-6
+        image: anton28/web-service-backend:latest-web-front6
       imagePullSecrets:
       - name: my-dockerhub-secret
