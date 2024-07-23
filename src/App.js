@@ -8,8 +8,8 @@ import RegisterPage from './pages/RegisterPage'
 import ActivitiesPage from './pages/ActivitiesPage';
 import ProfilePage from './pages/ProfilePage';
 import ServicesPage from './pages/ServicesPage';
-import ConfirmationPage from './pages/ConfirmationPage' 
- import RecoveringPasswordPage from './pages/RecoveringPasswordPage.js'
+import ConfirmationPage from './pages/ConfirmationPage'
+//  import RecoveringPasswordPage from './pages/RecoveringPasswordPage.js'
 function App() {
   return (
     <div className="vh-100 gradient-custom">
@@ -25,7 +25,7 @@ function App() {
               <Route path="/services" element={<ServicesPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/confirmation" element={<ConfirmationPage />} />
-              <Route path="/recoveringPassword" element={<RecoveringPasswordPage />} />
+              {/* <Route path="/recoveringPassword" element={<RecoveringPasswordPage />} /> */}
 
 
           </Routes>

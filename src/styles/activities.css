@@ -1,47 +1,6 @@
-h1 {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 16px;
-    padding-right: 40px;
-}
-
-/* Style for form statuses */
-h2 {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 12px;
-}
-
-/* Style for form entries */
-p {
-    font-size: 14px;
-    color: #444;
-    margin-bottom: 8px;
-}
-
-/* Style for form links */
-a {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #0056b3;
-}
-/* styles.css */
-
-.form-container {
-    display: flex;
-    flex-direction: row;
-    padding-right: 40px;
-}
-
-.column {
-}
-
 /* activities.css */
 
+/* Styling for the status icons */
 .status-icon {
     display: inline-block;
     width: 10px;
@@ -49,12 +8,132 @@ a:hover {
     border-radius: 50%;
     margin-right: 8px;
 }
-  
+
 .status-draft {
-    background-color: darkorange;
+    background-color: orange;
 }
-  
+
 .status-submitted {
-    background-color: green;
+    background-color: #2196F3;
 }
-  
+
+.status-approved {
+    background-color: #4CAF50;
+}
+
+.status-returned {
+    background-color: #F44336;
+}
+
+/* Styling for the table and its components */
+.forms-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.forms-table th,
+.forms-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.forms-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.filters-container {
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.search-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.sort-select select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.table-header {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.table-cell {
+    text-align: left;
+}
+
+/* Styling for the buttons */
+.btn-primary {
+    background-color: #007bff; /* Blue */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 7px;
+}
+
+.view-comments-button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary:hover,
+.view-comments-button:hover {
+    opacity: 0.8;
+}
+
+/* Styling for the modal */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 4px;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.comment-paragraph {
+    margin-top: 0.5em;
+    margin-bottom: 2em;
+}

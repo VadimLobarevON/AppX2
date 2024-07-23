@@ -13,7 +13,7 @@ spec:
         app: webservice-frontend
     spec:
       containers:
-      - name: webservice-frontend-container-6
-        image: anton28/web-service-backend:latest-web-front6
+      - name: webservice-frontend-container-11
+        image: anton28/web-service-backend:latest-web-front11
       imagePullSecrets:
-      - name: my-dockerhub-secret
+      - name: aks-cluster-access-token-new
