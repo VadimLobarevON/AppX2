@@ -3,30 +3,32 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Modal, Button, Form } from "react-bootstrap";
 import "../styles/activities.css";
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ActivitiesPage = () => {
-  const [filteredData, setFilteredData] = useState([]);
-  const [forms, setForms] = useState([]);
-  const [searchFormName, setSearchFormName] = useState("");
-  const [searchFormType, setSearchFormType] = useState("");
-  const [searchFormStatus, setSearchFormStatus] = useState("");
+  const [filteredData, setFilteredData] = useState([]); // State for filtered form data
+  const [forms, setForms] = useState([]); // State for all form data
+  const [searchFormName, setSearchFormName] = useState(""); // State for form name search input
+  const [searchFormType, setSearchFormType] = useState(""); // State for form type search input
+  const [searchFormStatus, setSearchFormStatus] = useState(""); // State for form status search input
   const [modalVisible, setModalVisible] = useState(false); // State for modal visibility
   const [selectedForm, setSelectedForm] = useState(null); // State for selected form ID
   const [comments, setComments] = useState({}); // State for comments data
 
+  // Handle changes in form name search input
   const handleInputNameChange = (e) => {
     const inputValue = e.target.value;
     setSearchFormName(inputValue);
     filterForms(inputValue, searchFormType, searchFormStatus);
   };
 
+  // Handle changes in form type search input
   const handleInputTypeChange = (e) => {
     const inputValue = e.target.value;
     setSearchFormType(inputValue);
     filterForms(searchFormName, inputValue, searchFormStatus);
   };
 
+  // Function to filter forms based on search inputs
   const filterForms = (nameValue, typeValue, statusValue) => {
     let filteredForms = forms;
 
@@ -64,6 +66,7 @@ const ActivitiesPage = () => {
     setFilteredData(filteredForms);
   };
 
+  // Function to sort forms based on selected criteria
   const SortBy = (name, value) => {
     console.log(name, value);
 
@@ -109,6 +112,7 @@ const ActivitiesPage = () => {
     setFilteredData(sortedData);
   };
 
+  // Fetch form data corresponding to the user
   useEffect(() => {
     const fetchFormData = async () => {
       try {
@@ -126,36 +130,33 @@ const ActivitiesPage = () => {
     fetchFormData();
   }, []);
 
+  // Handle modify form action
   const handleModifyForm = (formId) => {
-    console.log(formId);
     const form = filteredData.find((form) => form.formid === formId);
     const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
 
     const encodeExtraCharacters = (str) => {
       return encodeURIComponent(str)
-        .replaceAll("^", '%5E')  // Encode caret (^) character
-        .replaceAll("#", '%23')    // Encode hash (#) character
-        .replaceAll("\\", '\\')   // Encode backslash (\) character
-        .replaceAll("|", '%7C')   // Encode vertical bar (|) character
-        .replaceAll("\"", '%22')    // Encode double quote (") character)
-        .replaceAll("'", '%27')    // Encode single quote (') character)
-        .replaceAll("<", '%3C')// Encode angle brackets (<) together as %3C)
-        .replaceAll(">", '%3E')// Encode angle brackets (>) together as %3E)
-        .replaceAll("`", '%60')    // Encode grave accent (`) character)
-        .replaceAll("{", '%7B')   // Encode opening curly brace ({) character)
-        .replaceAll("}", '%7D')   // Encode closing curly brace (}) character)
-        .replaceAll("[", '%5B')   // Encode opening square bracket ([) character)
-        .replaceAll("]", '%5D')   // Encode closing square bracket (]) character)
-        .replaceAll("/", '%2F')   // Encode forward slash (/) character)
-        .replaceAll(":", '%3A');   // Encode colon (:) character)
+        .replaceAll("^", '%5E')  
+        .replaceAll("#", '%23')  
+        .replaceAll("\\", '\\')  // Encode backslash (\) character
+        .replaceAll("|", '%7C')  
+        .replaceAll("\"", '%22') // Encode double quote (") character
+        .replaceAll("'", '%27')  
+        .replaceAll("<", '%3C')  
+        .replaceAll(">", '%3E')  
+        .replaceAll("`", '%60')  
+        .replaceAll("{", '%7B')  
+        .replaceAll("}", '%7D')  
+        .replaceAll("[", '%5B')  
+        .replaceAll("]", '%5D')  
+        .replaceAll("/", '%2F')  
+        .replaceAll(":", '%3A'); 
     };
 
     const encodedFormType = encodeExtraCharacters(form.form_type);
     const encodedUserId = encodeExtraCharacters(userId);
     const encodedFormId = encodeExtraCharacters(formId);
-
-    console.log(formId);
-    console.log(encodedFormId);
 
     const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormType}/${encodedUserId}/${encodedFormId}`;
     console.log(link);
@@ -163,6 +164,7 @@ const ActivitiesPage = () => {
     window.open(link, "_blank");
   };
 
+  // Handle view comments action
   const handleViewComments = async (formId) => {
     try {
       const response = await axios.get(`http://4.172.40.43/formReviewResults/${formId}`);
@@ -174,11 +176,13 @@ const ActivitiesPage = () => {
     }
   };
 
+  // Close modal
   const closeModal = () => {
     setModalVisible(false);
     setComments(null);
   };  
 
+  // Render forms in a table format
   const renderForms = () => {
     if (!filteredData || filteredData.length === 0) {
       return <div>No data to display</div>;

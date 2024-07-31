@@ -6,30 +6,35 @@ import "../styles/login.css";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+
+  // State hook for managing form input values
   const [values, setValues] = useState({
-    Email__address: "",
-    Password: "",
+    Email__address: "", // Initial state for email address
+    Password: "", // Initial state for password
   });
 
+  // Handler function for input changes
   const handleChange = (event) => {
     setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
     console.log("change");
   };
+
+  // Handler function for form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(values);
+
+    // Make a POST request to the server with email and password
     axios
       .post("http://20.175.202.147/user/get-user", {
         Email__address: values.Email__address,
         Password: values.Password,
       })
       .then(function (response) {
-        console.log(response);
+        console.log(response); // Log the server response
+
         if (response.status === 200) {
           // Save user data to localStorage
           localStorage.setItem('userProfile', JSON.stringify(response.data));
-
-          console.log("redirected");
           navigate("/profile", { state: { user: response.data } });
         } else {
           alert("Credentials are incorrect");
@@ -40,34 +45,6 @@ export default function LoginPage() {
         alert("Credentials are incorrect");
       });
   };
-  // const handleSubmit = (event) =>{
-  //   navigate("/profile");
-  // }
-  // const handleRecoveringPassword = (event) => {
-  //   event.preventDefault();
-
-  //   console.log(values.Email);
-
-  //   if (values.Email === "") {
-  //     alert("Please enter your email address.");
-  //   } else {
-  //     console.log("Sending an email and redirecting...");
-
-  //     axios
-  //       .post("https://soab-poc-user-api.azurewebsites.net/recovery", {
-  //         Email: values.Email,
-  //         Link: "https://appx.azurewebsites.net/recoveringPassword",
-  //       })
-  //       .then(function (response) {
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error, "error");
-  //       });
-
-  //     navigate("/confirmation");
-  //   }
-  // };
 
   return (
     <div className="container">
@@ -103,22 +80,6 @@ export default function LoginPage() {
             placeholder="Enter password"
           />
         </div>
-
-        {/* <div className="form-group forgot-password">
-          <Link
-            onClick={handleRecoveringPassword}
-            to="/confirmation"
-            className=""
-          >
-            Forgot password?
-          </Link>
-        </div> */}
-        {/* <div className="">
-                      <input className="" type="checkbox" value="" id="RememberMe" />
-                      <label className="" for="RememberMe">
-                        Remember me
-                      </label>
-                    </div> */}
 
         <div className="form-group">
           <button type="submit" className="login-button">
