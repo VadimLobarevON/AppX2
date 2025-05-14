@@ -62,7 +62,7 @@ const UserDetailsEdit = ({ user, onSave }) => {
     
     // Send updated details to server
     axios
-      .post("http://20.175.202.147/user/update", {
+      .post("https://user-profile-poc-1.onrender.com/user/update", {
         userid: editedUser.userid,
         First__name: editedUser.First__name,
         Last__name: editedUser.Last__name,

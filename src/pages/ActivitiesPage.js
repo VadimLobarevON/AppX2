@@ -118,7 +118,7 @@ const ActivitiesPage = () => {
       try {
         const userId = JSON.parse(localStorage.getItem("userProfile")).userid;
         const response = await axios.get(
-          `http://4.172.130.199/forms/${userId}`
+          `https://web-services-poc.onrender.com/forms/${userId}`
         );
         setFilteredData(response.data);
         setForms(response.data);
@@ -158,7 +158,7 @@ const ActivitiesPage = () => {
     const encodedUserId = encodeExtraCharacters(userId);
     const encodedFormId = encodeExtraCharacters(formId);
 
-    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormType}/${encodedUserId}/${encodedFormId}`;
+    const link = `https://test.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormType}/${encodedUserId}/${encodedFormId}`;
     console.log(link);
     console.log(decodeURI(link));
     window.open(link, "_blank");
@@ -167,7 +167,7 @@ const ActivitiesPage = () => {
   // Handle view comments action
   const handleViewComments = async (formId) => {
     try {
-      const response = await axios.get(`http://4.172.40.43/formReviewResults/${formId}`);
+      const response = await axios.get(`https://forms-services-poc.onrender.com/formReviewResults/${formId}`);
       setComments(response.data);
       setSelectedForm(formId);
       setModalVisible(true);

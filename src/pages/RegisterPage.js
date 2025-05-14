@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
     // Send user data to the server
     axios
-      .post("http://20.175.202.147/user", {
+      .post("https://user-profile-poc-1.onrender.com/user", {
         First__name: values.First__name,
         Last__name: values.Last__name,
         Business__operating__number: values.Business__operating__number,

@@ -25,7 +25,7 @@ export default function LoginPage() {
 
     // Make a POST request to the server with email and password
     axios
-      .post("http://20.175.202.147/user/get-user", {
+      .post("https://user-profile-poc-1.onrender.com/user/get-user", {
         Email__address: values.Email__address,
         Password: values.Password,
       })

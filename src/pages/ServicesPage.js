@@ -18,7 +18,7 @@ export default function ServicesPage() {
     console.log(uuidRef.current);
 
     // Fetch form types from the provided URL
-    axios.get("http://4.172.130.199/form-types")
+    axios.get("https://web-services-poc.onrender.com/form-types")
       .then((response) => {
         setFormTypes(response.data);
       })
@@ -56,7 +56,7 @@ export default function ServicesPage() {
     const encodedInputFormName = encodeExtraCharacters(formName);
 
     // Construct the URL
-    const link = `https://dev.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormName}/${encodedUserId}/NEW-${encodedInputFormName}`;
+    const link = `https://test.cxp.mgcs.gov.on.ca/on-form/#/${encodedFormName}/${encodedUserId}/NEW-${encodedInputFormName}`;
     window.open(link, '_blank'); // Open the form in a new tab
   }
 
